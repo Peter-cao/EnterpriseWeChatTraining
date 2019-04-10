@@ -1,15 +1,5 @@
 const path = require('path');
 const database = {
-    mysql: {
-        id: 'mysql',
-        type: 'mysql',
-        timezone: 'Z',
-        database: 'bedn',                            //按需修改
-        user: 'root',                                //按需修改
-        password: 'toot',                           //按需修改
-        port: '3306',                                   //按需修改
-        host: 'localhost'                              //按需修改
-    },
     redis: {
         id: 'redis',
         type: 'redis',                                //按需修改
@@ -28,13 +18,6 @@ const database = {
             encrypt: false
         }
     },
-    oracle: {
-        type: 'oracle',
-        user          : "appadmin",
-        password      : "Appadmin12345",
-        connectString : "10.1.17.13/orcl",
-        events        :  true
-    }
 };
 
 module.exports = {
