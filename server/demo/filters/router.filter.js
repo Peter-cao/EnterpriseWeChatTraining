@@ -55,7 +55,7 @@ const rules = {
             }
         }
 
-        return rs;
+        return true;
     }
 };
 

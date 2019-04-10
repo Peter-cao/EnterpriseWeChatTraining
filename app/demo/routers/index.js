@@ -5,6 +5,7 @@
 import { router } from '@auicomp/page/Page.aui';
 
 import MainPage from '../pages/MainPage.aui';
+import Index from '../pages/index.aui';
 import TitlebarPage from '../pages/TitlebarPage.aui';
 import ListPage from '../pages/ListPage.aui';
 import ButtonPage from '../pages/ButtonPage.aui';
@@ -37,11 +38,11 @@ import AjaxListPage from '../pages/AjaxListPage.aui';
 router.add([
     {
         path: '/',
-        redirect: '/main'
+        redirect: '/index'
     },
     {
-        path: '/main',
-        component: MainPage,
+        path: '/index',
+        component: Index,
         // cache: true // 设置缓存
         // children: [] // 设置子路由，子路由也是形如{path, component, cache?, children?, redirect?:string|function(query)}
     },

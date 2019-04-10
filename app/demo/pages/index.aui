@@ -1,0 +1,86 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <caption-area>
+                <aui-text>DEMO</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute;top: 45px; right: 0px; bottom: 0px; left: 0px;">
+        <aui-button class="btn btn-primary" v-on:click="func.getAccessToken">获取access_token</aui-button>
+        <aui-button class="btn btn-primary" v-on:click="func.sendMsg">发送消息</aui-button>
+        <aui-button class="btn btn-primary" v-on:click="func.test">test</aui-button>
+    </aui-scroller>
+</ui>
+
+
+<script>
+import '@auicomp/header/Header.aui';
+import '@auicomp/footer/Footer.aui';
+import '@auicomp/scroller/Scroller.aui';
+import '@auicomp/text/Text.aui';
+import '@auicomp/grid/Grid.aui';
+import '@auicomp/titlebar/Titlebar.aui';
+import '@auicomp/list/List.aui';
+import '@auicomp/action/Action.aui';
+import fetch from '@comm/utils/fetch';
+export default class MainPage{
+    
+    static get tag(){
+        return 'index';
+    }
+
+    created(){
+        const obj = this.$obj = {
+            func:{
+                getAccessToken(){
+                     fetch({
+                        url : 'wechart/getAccessToken',
+                        type:'get',
+                        data: {
+                        },
+                        success: function(Data){
+                            console.log(Data);
+                        },
+                        error: function(rs){
+                            console.log(rs);
+                        }
+                    }) 
+                },
+                sendMsg(){
+                    fetch({
+                        url : 'wechart/sendMsg',
+                        type:'get',
+                        data: {
+                        },
+                        success: function(Data){
+                            console.log(Data);
+                        },
+                        error: function(rs){
+                            console.log(rs);
+                        }
+                    })   
+                },
+                test(){
+                     fetch({
+                        url : 'wechart/getMsg',
+                        type:'get',
+                        data: {
+                        },
+                        success: function(Data){
+                            console.log(Data);
+                        },
+                        error: function(rs){
+                            console.log(rs);
+                        }
+                    })   
+                }
+            }
+        }
+        this.$vm = $(this.$el).render(this.$obj);
+    }
+}
+
+</script>
+

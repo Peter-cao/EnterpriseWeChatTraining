@@ -56,6 +56,7 @@
     "moment": "^2.22.2",
     "nodemailer": "^5.0.0",
     "smtp-server": "^3.4.7",
-    "supervisor": "^0.12.0"
+    "supervisor": "^0.12.0",
+    "wxcrypt": "^1.4.2"
   }
 }

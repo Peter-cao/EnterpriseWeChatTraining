@@ -33,33 +33,7 @@ var fetch = function (options) {
     options.success = function (data) {
         var args = arguments;
         if (options.dataType === 'json') {
-            if(data.errcode !== 0){
-                if(options.derror){
-                    if(data.errcode===20000){
-                        location.href = 'login.html';
-                    }else{
-                        options.derror.apply(this, arguments);
-                    }
-                    return;
-                }
-                Alert.show({
-                    'content': data.errmsg,
-                    'showType':data.errcode===20000?'':'error',
-                    'doOk': function () {
-                        if(data.errcode===20000){
-                            location.href = 'login.html';
-                        }else{
-                            _errorFuncCache&&_errorFuncCache.apply(this, args);
-                        }
-                    }
-                });
-            }else{
-                if(options.dsuccess){
-                    options.dsuccess.apply(this, arguments);
-                    return;
-                }
                 _successFuncCache&&_successFuncCache.apply(this, args);
-            }
         }
 
     };
