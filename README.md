@@ -26,6 +26,38 @@ chestnut框架是基于Nodejs的KOA2框架进行封装的web服务快速开发�
 [chestnut-app框架](https://github.com/nandy007/chestnut-app)：综合其他chestnut框架，提供快速搭建web服务框架。
 
 
+Tips：
+
+1. oracledb可通过源码方式编译安装https://oracle.github.io/node-oracledb/INSTALL.html#github
+
+第一步：克隆源码工程
+
+```bash
+cd your-dir-path
+git clone https://github.com/oracle/node-oracledb.git
+
+```
+
+
+第二步：添加submodule模块
+
+```bash
+
+cd node-oracledb
+git submodule init
+git submodule update
+
+```
+
+第三步：源码编译到指定项目
+
+```bash
+
+cd your-project-dir
+npm install your-dir-path/node-oracledb
+
+```
+
 # 框架结构
 
 整个框架采用webpack进行构建，同时也包含requirejs中的使用示例。
@@ -158,6 +190,12 @@ npm run app ${projectName}
 npm run app demo
 ```
 
+如果要启动指定多个项目，可用空格隔开，比如：
+
+```bash
+npm run app demo test
+```
+
 即启动demo项目，如果不指定，则所有app项目均启动。当项目超过3个时不建议同时启动。
 
 前端启动统一端口为3100，可自行在webpack.config.app.js中修改。
@@ -172,10 +210,12 @@ npm run app demo
 ### 启动后端服务
 
 ```bash
-npm run server ${projectName}
+npm run server ${projectName} ${port}
 ```
 
 请将${projectName}替换为具体的项目目录名称，必须指定项目！！！
+
+${port}为调试端口，可以不加，默认为5858，如果启动多个server，必须指定调试端口，否则会冲突！！！
 
 后端服务的启动端口在各个项目的config.*.js文件中定义。
 
@@ -339,7 +379,7 @@ const $frame = $('<aui-frame></aui-frame>').appendTo($('body'));
 ```javascript
 const fragment = document.createDocumentFragment(); fragment.append($frame[0]); 
 ```
-   这时候刚才的frame组件被从body中抽出，并添加到fragment，由于fragment元素也不在文档中，这时候就会触发detached事件
+   这时候刚才的frame组件被从body中抽出，并添加到fragment，从body抽出时即移除文档（document），会触发detached事件
 
 3. adopted（组件从旧文档移到新文档时触发）：比如：
 ```javascript
@@ -595,7 +635,7 @@ export default class Main{
 
 ```javascript
 
-$('#main').trigger('main');
+$('#main').trigger('doRefresh');
 
 ```
 
@@ -820,3 +860,7 @@ obj.list = [{
 上面的例子中对象a的存储地址实际已经改变，重新被赋值，会导致mvvm失效。同理数组的重新赋值也是不行的。
 
 但是，在最新版agile-ce@0.4.23之后这种行为已经可以支持，源于ace框架内部做了处理，赋值采用深拷贝处理，而不是真实的赋值
+
+5. mvvm已经被销毁
+
+可以调用mvvm对象的destroy()方法销毁，这时候再进行数据改变不会在ui生效。

@@ -19,14 +19,14 @@ const entryRoot = path.join(__dirname, '../app');
 
 let project = process.env.project;
 
-if( !project || !fs.existsSync(path.join(entryRoot, project))){
-	project = '';
-}
+// if( !project || !fs.existsSync(path.join(entryRoot, project))){
+// 	project = '';
+// }
 
 console.log('\n\n\n\n','当前应用：'+(project||'全部')+'\n\n\n\n');
 
 // 将app目录下的文件夹分开编译，除了common目录
-const apps =  project?[project]:glob.sync('*', {cwd: entryRoot, ignore: 'common'});
+const apps =  project?project.split(' '):glob.sync('*', {cwd: entryRoot, ignore: 'common'});
 
 // 定义输出目录
 let outputRoot = path.join(__dirname, '../public');

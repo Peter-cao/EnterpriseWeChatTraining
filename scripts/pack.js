@@ -14,13 +14,16 @@ try{
     console.log(e);
 }
 
+process.env.project = project;
+process.env.NODE_ENV = 'production';
+
 function run(){
     spawn('node', ['--max_old_space_size=4096', 'node_modules/webpack/bin/webpack.js', '--progress', '--colors', '--config', 'build/webpack.config.'+type+'.js'], {
         cwd: path.join(__dirname, '../'),
-        env: {
-            project: project,
-            NODE_ENV: 'production'
-        },
+        // env: {
+        //     project: project,
+        //     NODE_ENV: 'production'
+        // },
         stdio: 'inherit'
     });  
 }

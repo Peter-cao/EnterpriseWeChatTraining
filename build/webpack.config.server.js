@@ -103,7 +103,7 @@ servers.forEach((server)=>{
 
 function _externals() {
     let manifest = require('../package.json');
-    let dependencies = manifest.dependencies;
+    let dependencies = Object.assign({}, manifest.dependencies||{}, manifest.devDependencies||{});
     let externals = {};
     for (let p in dependencies) {
         externals[p] = 'commonjs ' + p;
