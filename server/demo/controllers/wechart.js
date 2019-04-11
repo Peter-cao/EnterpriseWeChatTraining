@@ -29,5 +29,13 @@ module.exports = {
             ctx.body = code.get(20000); 
         }
     },
+    async test(ctx){
+        const rs = await wechartModel.test(ctx);
+        if(rs){
+            ctx.body = rs; 
+        }else{
+            ctx.body = code.get(20000); 
+        }
+    },
     
 };

@@ -64,10 +64,9 @@ export default class MainPage{
                 },
                 test(){
                      fetch({
-                        url : 'wechart/getMsg',
-                        type:'get',
-                        data: {
-                        },
+                        url : 'wechart/test',
+                        type:'post',
+                        data:'<a>1</a>',
                         success: function(Data){
                             console.log(Data);
                         },

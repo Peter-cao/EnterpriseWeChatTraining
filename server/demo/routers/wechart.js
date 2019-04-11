@@ -9,5 +9,7 @@ module.exports = router
     .get('/getAccessToken', wechartController.getAccessToken)
     .get('/sendMsg', wechartController.sendMsg)
     .get('/getMsg', wechartController.getMsg)
+    .post('/getMsg', wechartController.getMsg)
+    .post('/test', wechartController.test)
     
     

@@ -4,6 +4,7 @@
 const { fetch, jqlite } = require('chestnut-utils');
 var Redis = require('ioredis');
 const WXBizMsgCrypt = require('wxcrypt');
+const { x2o,o2x  } = require('wxcrypt');
 
 const corpid = 'wwba6d2647d5fdb7c8';
 const secret = 'Teqv0WM277kHfyRREZQLskP7_3KPgkT-2P9i4uErdHg';
@@ -49,9 +50,39 @@ module.exports = {
         let msgSignature = ctx.request.query.msg_signature;
         let timestamp = ctx.request.query.timestamp;
         let nonce = ctx.request.query.nonce;
-        let echostr = ctx.request.query.echostr;
-        let resutlt = crypto.verifyURL(msgSignature, timestamp, nonce, echostr);
-        return resutlt;
+        if(ctx.request.method=='GET'){
+            let echostr = ctx.request.query.echostr;
+            let resutlt = crypto.verifyURL(msgSignature, timestamp, nonce, echostr);
+            console.log(resutlt);
+            return resutlt;
+        }else{
+            let result = crypto.decryptMsg(msgSignature, timestamp, nonce, ctx.request.body);
+            result = x2o(result)
+            console.log(result);
+            if(result.xml.MsgType === 'text' && result.xml.Content==='值班'){
+                let CreateTime = Date.parse(new Date()).toString().substr(0,10);
+                let replyMsg = {
+                    xml:{
+                        ToUserName:result.xml.FromUserName,
+                        FromUserName:result.xml.ToUserName,
+                        CreateTime:CreateTime,
+                        MsgType:'text',
+                        Content:'测试专用!!'
+                    }
+                };
+                replyMsg = o2x(replyMsg)
+                console.log(replyMsg)
+                let xml = crypto.encryptMsg(replyMsg, CreateTime, nonce)
+                console.log(xml);
+                return ctx.response.body = xml;
+            }
+            return {};
+        }
+        
+    },
+    async test(ctx){
+        console.log(ctx.request.body)
     }
+    
     
 };
